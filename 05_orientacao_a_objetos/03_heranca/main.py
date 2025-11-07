@@ -19,7 +19,7 @@ def main():
     )
     empresa = PessoaJuridica(
         nome_fantasia="",
-        cpnj="",
+        cnpj="",
         email="",
         telefone=""
     )
@@ -45,17 +45,19 @@ def main():
                 limpar()
                 continue
             case "2":
-                usuario.nome_fantasia = input("Informe o nome da empresa: ").strip().title()
-                usuario.cnpj = input("Informe o cnpj: ").strip()
-                usuario.email = input("Informe o e-mail: ").strip().lower()
-                usuario.telefone = input("Informe o telefone: ").strip()
+                empresa.nome_fantasia = input("Informe o nome da empresa: ").strip().title()
+                empresa.cnpj = input("Informe o cnpj: ").strip()
+                empresa.email = input("Informe o e-mail: ").strip().lower()
+                empresa.telefone = input("Informe o telefone: ").strip()
                 limpar()
                 continue
 
             case "3":
-                pass
+                usuario.exibir_dados()
+                continue
             case "4":
-                pass
+                empresa.exibir_dados()
+                continue
             case "5":
                 print("Programa encerrado.")
                 break

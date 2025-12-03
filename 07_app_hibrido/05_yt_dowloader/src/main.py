@@ -1,5 +1,5 @@
 import flet as ft
-from pytubefix import Youtube
+from pytubefix import YouTube
 
 import os
 import threading
@@ -8,7 +8,7 @@ import threading
 def main(page: ft.Page):
     page.title = "Youtube Dowloader"
     page.theme_mode = ft.ThemeMode.LIGHT
-    page.window.icon = "assests/icon.ico"
+    page.window.icon = "assets/icon.ico"
 
     # cria as pastas caso não existam
     caminho_videos = 'videos'
@@ -29,7 +29,7 @@ def main(page: ft.Page):
     logo_cabecalho = ft.Image(src=logo_path, width=300, height=200)
 
     # componente para mostrar informações do vídeo
-    video_info = ft.Countainer(
+    video_info = ft.Container(
         content=ft.Column([]),
         visible=False,
         padding=10,
@@ -42,7 +42,7 @@ def main(page: ft.Page):
     progress_bar = ft.ProgressBar(
         visible=False,
         width=400,
-        color=ft.Colors.BRUE,
+        color=ft.Colors.BLUE,
         bgcolor=ft.Colors.BLUE_GREY_100
     )
 
@@ -95,7 +95,7 @@ def main(page: ft.Page):
                 page.update()
 
                 # criar objeto do youtube
-                yt = Youtube(url.value.strip())
+                yt = YouTube(url.value.strip())
 
                 # capturar as informações do vídeo
                 mostrar_info_videos(yt)
@@ -146,7 +146,7 @@ def main(page: ft.Page):
                 page.update()
 
                 # criar objeto youtube
-                yt = Youtube(url.value.strip())
+                yt = YouTube(url.value.strip())
                 
                 # mostra informações do vídeo
                 mostrar_info_videos(yt)
@@ -157,7 +157,7 @@ def main(page: ft.Page):
 
                 stream = yt.streams.filter(only_audio=True).first()
                 if stream:
-                    audio_file = stream.donwload(caminho_audios)
+                    audio_file = stream.download(caminho_audios)
 
                     # renomeia para mp3
                     base, extens = os.path.splitext(audio_file)
@@ -201,7 +201,7 @@ def main(page: ft.Page):
             bgcolor=ft.Colors.BLUE,
             color=ft.Colors.WHITE,
             elevation=3,
-            text_style=ft.TextStryle(size=18)
+            text_style=ft.TextStyle(size=18)
         )
     )
     audio_btn = ft.ElevatedButton(
@@ -212,12 +212,12 @@ def main(page: ft.Page):
             bgcolor=ft.Colors.GREEN,
             color=ft.Colors.WHITE,
             elevation=3,
-            text_style=ft.TextStryle(size=18)
+            text_style=ft.TextStyle(size=18)
         )
     )
     clear_btn = ft.IconButton(
         on_click=limpar_campos,
-        stryle=ft.ButtonStyle(
+        style=ft.ButtonStyle(
             bgcolor=ft.Colors.GREY,
             color=ft.Colors.WHITE,
             elevation=1
@@ -238,11 +238,18 @@ def main(page: ft.Page):
     
    
     page.add(
-        ft.SafeArea(
-            ft.Container(
-                alignment=ft.alignment.center,
-            ),
-            expand=True,
+        ft.Column(
+            [
+                logo_cabecalho, linha_url,
+                ft.Divider(height=0, color=ft.Colors.TRANSPARENT),
+                video_info, botoes,
+                ft.Divider(height=10, color=ft.Colors.TRANSPARENT),
+                progress_bar, status_text
+            ],
+            spacing=15,
+            alignment=ft.CrossAxisAlignment.CENTER,
+            horizontal_alignment=ft.CrossAxisAlignment.CENTER,
+            scroll=ft.ScrollMode.AUTO
         )
     )
 

@@ -8,7 +8,7 @@ import threading
 def main(page: ft.Page):
     page.title = "Youtube Dowloader"
     page.theme_mode = ft.ThemeMode.LIGHT
-    page.window.icon = "assets/icon.ico"
+    page.window.icon = "assets/icon.png"
 
     # cria as pastas caso não existam
     caminho_videos = 'videos'
@@ -25,7 +25,7 @@ def main(page: ft.Page):
     )
 
     base_path = os.path.dirname(__file__)
-    logo_path = os.path.join(base_path, "assets", "youtube.png")
+    logo_path = os.path.join(base_path, "assets", "icon.png")
     logo_cabecalho = ft.Image(src=logo_path, width=300, height=200)
 
     # componente para mostrar informações do vídeo
@@ -216,6 +216,7 @@ def main(page: ft.Page):
         )
     )
     clear_btn = ft.IconButton(
+        icon= ft.Icons.CAR_CRASH,
         on_click=limpar_campos,
         style=ft.ButtonStyle(
             bgcolor=ft.Colors.GREY,

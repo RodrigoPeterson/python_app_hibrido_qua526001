@@ -129,23 +129,29 @@ class TodoApp(ft.Column):
         self.tasks.controls.remove(task)
         self.update()
 
+    def task_status_change(self):
+        self.update()
+
     def tabs_changed(self, e):
         self.update()
 
-    def task_status_change(self, e):
-        self.update()
-
-    def add_clicked(self, e):
-        task = Task(self.new_task.value, self.task_status_change, self.task_delete)
+    def clear_clicked(self, e):
+        for task in self.task.controls[:]:
+            if task.completed:
+                self.task_delete(task)
 
     def before_update(self):
         status = self.filter.tabs[self.filter.selected_index].text
+        count = 0
         for task in self.tasks.controls:
             task.visible = (
                 status == "all"
                 or (status == "active" and task.completed == False)
                 or (status == "completed" and task.completed)
             )
+            if not task.completed:
+                count += 1
+        self.items_left.value = f"{count} active item(s) left"
 
 def main(page: ft.Page):
     page.title = "To-Do App"

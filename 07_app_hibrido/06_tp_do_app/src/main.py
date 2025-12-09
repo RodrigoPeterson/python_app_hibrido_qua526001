@@ -88,7 +88,7 @@ class TodoApp(ft.Column):
         self.controls = [
             ft.Row(
                 [ft.Text(value="Todos", theme_style=ft.TextThemeStyle.HEADLINE_MEDIUM)],
-                alignment=ft.MainAxisAligment.Center,
+                alignment=ft.MainAxisAlignment.Center,
             ),
             ft.Row(
                 controls=[
